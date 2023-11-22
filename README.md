@@ -1,4 +1,4 @@
-# marcos_custom_restaurant_ticket
+# Custom Restaurant POS Order Ticket
 Custom kitchen ticket
 
 *Roadmap*
