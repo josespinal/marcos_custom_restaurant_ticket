@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<templates id="template" xml:space="preserve">
+  <t t-name="marcos_custom_restaurant_ticket.test">
+    <t t-log="'Testing'" />
+  </t>
+
+  <t t-name="marcos_custom_restaurant_ticket.custom_order_change_ticket">
+    <receipt
+        align='center'
+        width='40'
+        size='double-height'
+        line-ratio='0.4'
+        value-decimals='3'
+        value-thousands-separator=''
+        value-autoint='on'
+    >
+        <div size='normal' ><t t-esc="changes.name" /></div>
+        <t t-if="changes.floor || changes.table">
+            <br />
+            <div><span><t t-esc="changes.floor" /></span> / <span bold='on' size='double'><t t-esc="changes.table"/></span></div>
+        </t>
+        <br />
+        <br />
+        <t t-log="'From new module'" />
+        <t t-if="changes.cancelled.length > 0">
+            <div color='red'>
+                <div bold='on' size='double'>CANCELLED <span bold='off' size='double-height'><t t-esc='changes.time.hours' />:<t t-esc='changes.time.minutes' /></span> </div>
+                <br />
+                <br />
+                <t t-foreach="changes.cancelled" t-as="change">
+                    <line>
+                        <left><value><t t-esc="change.qty" /></value></left>
+                        <right><t t-esc="change.name_wrapped[0]" /></right>
+                    </line>
+                    <t t-call="NameWrapped"/>
+                    <t t-if="change.note">
+                        <line>
+                            <left>NOTE</left>
+                            <right>...</right>
+                        </line>
+                        <div><span font='b' bold='off' line-ratio='0.4' indent='1' width='30'>--- <t t-esc="change.note" /></span></div>
+                        <line></line>
+                    </t>
+                </t>
+                <br />
+                <br />
+            </div>
+        </t>
+        <t t-if="_.size(changes.new) > 0">
+            <div bold='on' size='double'>NEW <span bold='off' size='double-height'><t t-esc='changes.time.hours' />:<t t-esc='changes.time.minutes' /></span> </div>
+            <br />
+            <br />
+            <t t-foreach="changes.new" t-as="change_cat">
+                <br />
+                <br />
+
+                <div bold='on' size='double'>
+                  <left><t t-esc="change_cat" /></left>
+                </div>
+
+                <t t-foreach="change_cat_value" t-as="change">
+                  <line>
+                      <left><value><t t-esc="change.qty" /></value></left>
+                      <right><t t-esc="change.name_wrapped[0]" /></right>
+                  </line>
+                  <t t-call="NameWrapped"/>
+                  <t t-if="change.note">
+                      <line>
+                          <left>NOTE</left>
+                          <right>...</right>
+                      </line>
+                      <div><span font='b' bold='off' line-ratio='0.4' indent='1' width='30'>--- <t t-esc="change.note" /></span></div>
+                      <line></line>
+                  </t>
+                </t>
+            </t>
+            <br />
+            <br />
+        </t>
+    </receipt>
+  </t>
+</templates>
