@@ -11,7 +11,6 @@ odoo.define("marcos_custom_restaurant_ticket.ticket_changes", function (require)
   models.Order = models.Order.extend({
     initialize: function (session, attributes) {
       var self = this;
-      console.log(QWeb.templates);
 
       // call original method via "apply"
       _super_posmodel.initialize.apply(this, arguments);
